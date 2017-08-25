@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const myNumbers = Observable.interval(1000);
+    myNumbers.subscribe((number: number) => console.log(number));
   }
 
 }
