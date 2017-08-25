@@ -14,8 +14,29 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const myNumbers = Observable.interval(1000);
-    myNumbers.subscribe((number: number) => console.log(number));
+    const myObservable = Observable.create((observer: Observer<any>) => {
+      setTimeout(() => {
+        observer.next('first package');
+      }, 2000);
+      // setTimeout(() => {
+      //   observer.error('this doesn\'t work');
+      // }, 3000);
+      setTimeout(() => {
+        observer.next('second package');
+      }, 4000);
+      setTimeout(() => {
+        // observer.error('this doesn\'t work');
+        observer.complete();
+      }, 5000);
+      setTimeout(() => {
+        observer.next('third package');
+      }, 6000);
+    });
+    myObservable.subscribe(
+      (data: string) => console.log(data),
+      (err: string) => console.log('Error: ' + err),
+      () => console.log('Completed!')
+    );
   }
 
 }
