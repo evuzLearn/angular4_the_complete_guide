@@ -10,6 +10,7 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
+  private id: number;
 
   constructor(
     private recipeService: RecipeService,
@@ -19,7 +20,10 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params
-      .subscribe((params: Params) => this.setRecipe(params));
+      .subscribe((params: Params) => {
+        this.id = +params['id'];
+        this.setRecipe(params);
+      });
   }
 
   onAddToShoppingList() {
@@ -32,5 +36,10 @@ export class RecipeDetailComponent implements OnInit {
 
   onEditRecipe() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/']);
   }
 }
