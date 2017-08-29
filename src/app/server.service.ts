@@ -20,7 +20,7 @@ export class ServerService {
   }
 
   getServers() {
-    return this.http.get('https://udemy-ng-http-8a266.firebaseio.com/data')
+    return this.http.get('https://udemy-ng-http-8a266.firebaseio.com/data.json')
       .map((res: Response) => {
         const data = res.json();
         for (const server of data) {
@@ -32,4 +32,10 @@ export class ServerService {
       });
   }
 
+  getAppName() {
+    return this.http.get('https://udemy-ng-http-8a266.firebaseio.com/appName.json')
+      .map((res: Response) => {
+        return res.json();
+      });
+  }
 }
